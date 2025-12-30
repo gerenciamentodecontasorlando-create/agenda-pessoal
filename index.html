@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f14" />
+  <title>BTX Agenda</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <button class="iconbtn" id="btnMenu" aria-label="Menu">☰</button>
+
+    <div class="brand">
+      <div class="brandTitle">BTX Agenda</div>
+      <div class="brandSub">offline • autosave • PDF</div>
+    </div>
+
+    <div class="topActions">
+      <button class="btn ghost" data-action="pdf">PDF</button>
+      <button class="btn" data-action="save">Salvar</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div>
+        <nav class="nav">
+          <button class="navbtn active" data-view="agenda">
+            <span class="ico">📅</span><span>Agenda</span>
+          </button>
+          <button class="navbtn" data-view="pacientes">
+            <span class="ico">👤</span><span>Pacientes</span>
+          </button>
+          <button class="navbtn" data-view="documentos">
+            <span class="ico">🧾</span><span>Documentos</span>
+          </button>
+          <button class="navbtn" data-view="config">
+            <span class="ico">⚙️</span><span>Config</span>
+          </button>
+        </nav>
+
+        <div class="miniCard">
+          <div class="miniTitle">Ações rápidas</div>
+          <div class="miniRow">
+            <button class="chip" data-action="hoje">Hoje</button>
+            <button class="chip" data-action="novo-ag">+ Agendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sideFooter">
+        <div class="small">Suporte</div>
+        <a class="whats" id="whatsSupport" href="https://wa.me/5591999873835" target="_blank" rel="noopener">
+          WhatsApp
+        </a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- AGENDA -->
+      <section class="view show" id="view-agenda">
+        <div class="pageHead">
+          <h1>Agenda</h1>
+          <div class="pageMeta">
+            <span class="badge" id="badgeHoje">—</span>
+          </div>
+        </div>
+
+        <div class="card calCard">
+          <div class="calTop">
+            <div class="calTitle" id="calMesAno">Mês/Ano</div>
+            <div class="calNav">
+              <button class="btn tiny ghost" data-action="mes-prev">◀</button>
+              <button class="btn tiny" data-action="mes-hoje">Hoje</button>
+              <button class="btn tiny ghost" data-action="mes-next">▶</button>
+            </div>
+          </div>
+          <div class="dow">
+            <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+          </div>
+          <div class="calGrid" id="calGrid"></div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="field">
+              <label>Data</label>
+              <input id="agData" type="date" />
+            </div>
+            <div class="field">
+              <label>Buscar</label>
+              <input id="agBusca" type="search" placeholder="Nome / telefone..." />
+            </div>
+          </div>
+
+          <div class="list" id="agendaLista"></div>
+
+          <div class="row actionsRow">
+            <button class="btn primary" data-action="novo-ag">+ Novo agendamento</button>
+            <button class="btn" data-action="pdf-agenda">PDF do dia</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PACIENTES -->
+      <section class="view" id="view-pacientes">
+        <div class="pageHead">
+          <h1>Pacientes</h1>
+          <div class="pageMeta">
+            <span class="badge" id="badgePacientes">0</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="field">
+              <label>Buscar</label>
+              <input id="pcBusca" type="search" placeholder="Nome / telefone..." />
+            </div>
+            <div class="field">
+              <label>&nbsp;</label>
+              <button class="btn primary w100" data-action="novo-paciente">+ Novo paciente</button>
+            </div>
+          </div>
+          <div class="list" id="pacientesLista"></div>
+        </div>
+      </section>
+
+      <!-- DOCUMENTOS -->
+      <section class="view" id="view-documentos">
+        <div class="pageHead">
+          <h1>Documentos</h1>
+          <div class="pageMeta">
+            <span class="badge">PDF limpo</span>
+          </div>
+        </div>
+
+        <div class="grid">
+          <button class="tile" data-action="doc-receita">
+            <div class="tileTop">Receituário</div>
+            <div class="tileSub">1 clique (imprimir/salvar em PDF)</div>
+          </button>
+          <button class="tile" data-action="doc-atestado">
+            <div class="tileTop">Atestado</div>
+            <div class="tileSub">rápido e elegante</div>
+          </button>
+          <button class="tile" data-action="doc-laudo">
+            <div class="tileTop">Laudo</div>
+            <div class="tileSub">texto livre</div>
+          </button>
+          <button class="tile" data-action="doc-orcamento">
+            <div class="tileTop">Orçamento</div>
+            <div class="tileSub">texto livre</div>
+          </button>
+          <button class="tile" data-action="doc-recibo">
+            <div class="tileTop">Recibo</div>
+            <div class="tileSub">valor + referente</div>
+          </button>
+        </div>
+
+        <div class="card subtle">
+          <div class="hint">
+            Esses PDFs saem via “Imprimir → Salvar como PDF”. Funciona offline e não coloca nenhuma informação do software no documento.
+          </div>
+        </div>
+      </section>
+
+      <!-- CONFIG -->
+      <section class="view" id="view-config">
+        <div class="pageHead">
+          <h1>Configurações</h1>
+          <div class="pageMeta">
+            <span class="badge">autosave</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="field">
+              <label>Nome do profissional</label>
+              <input id="cfgNome" placeholder="Ex: Orlando Abreu Gomes da Silva" />
+            </div>
+            <div class="field">
+              <label>Registro (CRO/CRM)</label>
+              <input id="cfgReg" placeholder="Ex: CRO-PA 00000" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Contato</label>
+              <input id="cfgContato" placeholder="Ex: (91) 99987-3835" />
+            </div>
+            <div class="field">
+              <label>Endereço</label>
+              <input id="cfgEndereco" placeholder="Endereço profissional" />
+            </div>
+          </div>
+
+          <div class="row actionsRow">
+            <button class="btn primary" data-action="salvar-config">Salvar</button>
+            <button class="btn" data-action="backup">Exportar backup</button>
+            <button class="btn ghost" data-action="restore">Importar backup</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
